@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const LINES = [
-  "Forget the £80-an-hour trainer",
+  "Forget the $80-an-hour trainer",
   "PushupPro does everything they do,",
   "and it's always available.",
   "It builds your plan,",

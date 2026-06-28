@@ -4,164 +4,326 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  MessageSquare,
+  ScanFace,
+  Scan,
+  Share2,
+  Target,
+  Dumbbell,
+  Trophy,
+  TrendingUp,
+  type LucideIcon,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const FEATURES = [
+type Layout = "hero" | "wide" | "tall";
+
+type Feature = {
+  icon: LucideIcon;
+  eyebrow: string;
+  heading: string;
+  body: string;
+  image: string;
+  imageClass?: string;
+  layout: Layout;
+  gridClass: string;
+};
+
+const FEATURES: Feature[] = [
   {
+    icon: Target,
     eyebrow: "Personalized Plans",
     heading: "A weekly plan built around you.",
-    body: "Tell PushupPro your goals, fitness level, and equipment. It builds a plan tailored to you, and keeps it updated as you progress.",
+    body: "Tell PushupPro your goals, fitness level, and available equipment. It builds a plan tailored to you and keeps it updated as you progress.",
     image: "/cardimg1.jpg",
-    placeholder: "Personalized Plan Video Placeholder",
-    reverse: false,
+    layout: "hero",
+    gridClass: "md:col-span-3",
   },
   {
-    eyebrow: "AI Coaching",
-    heading: "A coach in every session.",
-    body: "Get real-time guidance through every workout. PushupPro answers your questions, suggests weight adjustments, and keeps you on track between sets.",
-    image: "/cardimg2.jpg",
-    placeholder: "AI Coaching Video Placeholder",
-    reverse: true,
+    icon: Trophy,
+    eyebrow: "PR Tracking",
+    heading: "Your personal records, always in sight.",
+    body: "PushupPro automatically detects and saves every personal record — by exercise, rep range, and weight — so you always know where you stand.",
+    image: "/test.mp4",
+    imageClass: "object-cover",
+    layout: "tall",
+    gridClass: "md:col-span-1",
   },
   {
-    eyebrow: "Every Rep, Logged",
-    heading: "Every set, every PR, tracked.",
-    body: "Log sets, reps, and weights with a tap. PushupPro tracks your personal records and shows your strength progression over time.",
-    image: "/cardimg3.jpg",
-    placeholder: "Tracking Video Placeholder",
-    reverse: false,
-  },
-  {
+    icon: TrendingUp,
     eyebrow: "Progressive Overload",
     heading: "Built to keep you climbing.",
-    body: "PushupPro monitors your progress and nudges you to add weight or reps the moment you're ready, so you never plateau.",
-    image: "/cardimg4.jpg",
-    placeholder: "Progressive Overload Video Placeholder",
-    reverse: true,
+    body: "PushupPro watches your progress and tells you exactly when to add weight or reps, so you never stall or guess.",
+    image: "/prg-ovld.jpg",
+    imageClass: "object-cover",
+    layout: "tall",
+    gridClass: "md:col-span-1",
   },
   {
-    eyebrow: "Pose Detection",
-    heading: "Form feedback, no spotter needed.",
-    body: "Use your camera for real-time feedback on pushups, squats, and planks. Get rep counts and form scores without anyone watching.",
-    image: "/gymhandshake.webp",
-    placeholder: "Pose Detection Video Placeholder",
-    reverse: false,
+    icon: Dumbbell,
+    eyebrow: "Exercise Library",
+    heading: "900+ exercises. Every variation, covered.",
+    body: "From barbell squats to bodyweight alternatives — PushupPro has every exercise with weighted and equipment-free swaps, so no gym or no gear ever stops your session.",
+    image: "/test2.mp4",
+    imageClass: "object-cover",
+    layout: "tall",
+    gridClass: "md:col-span-1",
+  },
+  {
+    icon: Share2,
+    eyebrow: "Social Posters",
+    heading: "Turn your workout into a moment.",
+    body: "Every completed session can become a poster. PushupPro auto-fills your stats — exercises, sets, volume, PRs hit — into a clean, branded graphic. Pick a style, tweak the layout, and share straight to Instagram, X, or anywhere else. Your hard work deserves more than a number in a log.",
+    image: "/poster-untitled.png",
+    layout: "wide",
+    gridClass: "md:col-span-2",
+  },
+  {
+    icon: Scan,
+    eyebrow: "Body Scan",
+    heading: "Know your body before you train it.",
+    body: "Upload front and back photos and PushupPro's AI maps your muscle balance — pinpointing which groups are lagging and where to focus next.",
+    image: "/gym.jpg",
+    imageClass: "object-cover",
+    layout: "tall",
+    gridClass: "md:col-span-1",
+  },
+  {
+    icon: MessageSquare,
+    eyebrow: "AI Coach",
+    heading: "A helpful hand mid-workout.",
+    body: "Ask quick questions about rest times, form, or exercise swaps. Still being improved — but already useful for the basics.",
+    image: "/progressive-ovld.jpg",
+    imageClass: "object-cover",
+    layout: "tall",
+    gridClass: "md:col-span-1",
+  },
+  {
+    icon: ScanFace,
+    eyebrow: "Pose Detection & Challenges",
+    heading: "Compete. Rep by rep with Form feedback.",
+    body: "Point your camera and PushupPro counts every rep, scores your form, and flags bad reps in real time — no spotter, no guesswork. Then take it further in Challenges: compete in pushup and plank events against anyone, anywhere. Every clean rep moves you up the global leaderboard. Show up, lock in, and see exactly where you rank.",
+    image: "/posed.jpg",
+    imageClass: "object-cover",
+    layout: "wide",
+    gridClass: "md:col-span-2",
   },
 ];
 
-export default function AlternatingFeatures() {
-  const stackRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement[]>([]);
+function Media({ src, alt, className }: { src: string; alt: string; className?: string }) {
+  if (/\.(mp4|webm|mov)$/i.test(src)) {
+    return (
+      <video
+        src={src}
+        autoPlay
+        muted
+        loop
+        playsInline
+        className={cn("absolute inset-0 h-full w-full object-contain", className)}
+      />
+    );
+  }
+  return <Image src={src} alt={alt} fill className={className} />;
+}
+
+function BentoCard({ feature }: { feature: Feature }) {
+  const Icon = feature.icon;
+  const cardRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
+  const xTo = useRef<((v: number) => void) | null>(null);
+  const yTo = useRef<((v: number) => void) | null>(null);
 
   useEffect(() => {
-    const stack = stackRef.current;
-    const cards = cardsRef.current.filter(Boolean);
-    if (!stack || cards.length === 0) return;
-
-    const vh = window.innerHeight;
-    // Card 0 is already in place, so we only need scroll distance for the
-    // (N-1) hand-offs: card1 covering card0, card2 covering card1, etc.
-    const totalScroll = (cards.length - 1) * vh;
-
-    cards.slice(1).forEach((card) => gsap.set(card, { yPercent: 100 }));
-
-    // Drive every hand-off from ONE timeline tied to ONE ScrollTrigger
-    // (the pin itself), instead of separate triggers per card computing
-    // their own offsets against the same pinned element. Each .to() below
-    // occupies its own equal slice of the timeline, which GSAP maps
-    // proportionally onto the scrubbed pin range automatically — so there's
-    // no cross-trigger math that can drift out of sync. A card's position
-    // "sticks" once its slice finishes scrubbing (progress clamps at the
-    // end) and only un-clamps if the user scrolls back up into its slice.
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: stack,
-        start: "top top",
-        end: `+=${totalScroll}`,
-        pin: true,
-        pinSpacing: true,
-        scrub: true,
-      },
+    if (!cardRef.current) return;
+    gsap.set(cardRef.current, { transformPerspective: 900, rotateX: 0, rotateY: 0, force3D: true });
+    xTo.current = gsap.quickTo(cardRef.current, "rotateY", {
+      duration: 0.5,
+      ease: "power3.out",
     });
-
-    cards.slice(1).forEach((card, i) => {
-      tl.to(card, { yPercent: 0, ease: "none", duration: 1 }, i);
+    yTo.current = gsap.quickTo(cardRef.current, "rotateX", {
+      duration: 0.5,
+      ease: "power3.out",
     });
+  }, []);
 
-    return () => {
-      tl.scrollTrigger?.kill();
-      tl.kill();
-    };
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = cardRef.current;
+    if (!el || !xTo.current || !yTo.current) return;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    xTo.current(x * 22);
+    yTo.current(-y * 16);
+    if (glowRef.current) {
+      const xPct = ((e.clientX - rect.left) / rect.width) * 100;
+      const yPct = ((e.clientY - rect.top) / rect.height) * 100;
+      glowRef.current.style.background = `radial-gradient(circle at ${xPct}% ${yPct}%, rgba(255,255,255,0.08) 0%, transparent 60%)`;
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (xTo.current) xTo.current(0);
+    if (yTo.current) yTo.current(0);
+    if (glowRef.current) glowRef.current.style.background = "";
+  };
+
+  if (feature.layout === "hero") {
+    return (
+      <div className={cn("", feature.gridClass)}>
+        <div
+          ref={cardRef}
+          data-bento-card
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className="relative flex h-[300px] w-full cursor-default overflow-hidden rounded-xl bg-[#0f0f0f] md:h-[360px]"
+          style={{ willChange: "transform" }}
+        >
+          <div className="relative z-10 flex w-full flex-col justify-end gap-3 p-8 md:w-1/2 md:justify-center">
+            <div className="flex items-center gap-2 text-white/50">
+              <Icon className="size-4" />
+              <p className="font-mono text-[0.75rem] uppercase tracking-[0.05em]">
+                {feature.eyebrow}
+              </p>
+            </div>
+            <h3 className="text-[clamp(1.5rem,2.5vw,2rem)] font-normal leading-[1.1] tracking-[-0.02em] text-white">
+              {feature.heading}
+            </h3>
+            <p className="max-w-sm text-sm leading-[1.5] text-white/50">
+              {feature.body}
+            </p>
+          </div>
+          <div className="absolute inset-y-0 right-0 w-full md:w-1/2">
+            <Media
+              src={feature.image}
+              alt={feature.heading}
+              className="object-cover opacity-60 md:opacity-100"
+            />
+            <div className="absolute inset-y-0 left-0 hidden w-24 bg-gradient-to-r from-[#0f0f0f] to-transparent md:block" />
+          </div>
+          <div ref={glowRef} className="pointer-events-none absolute inset-0 z-20 rounded-xl transition-all duration-100" />
+        </div>
+      </div>
+    );
+  }
+
+  if (feature.layout === "wide") {
+    return (
+      <div className={cn("", feature.gridClass)}>
+        <div
+          ref={cardRef}
+          data-bento-card
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className="flex h-full w-full cursor-default flex-col overflow-hidden rounded-xl bg-[#0f0f0f]"
+          style={{ willChange: "transform" }}
+        >
+          <div className="relative aspect-[16/9] w-full shrink-0">
+            <Media
+              src={feature.image}
+              alt={feature.heading}
+              className={feature.imageClass ?? "object-contain"}
+            />
+          </div>
+          <div className="relative z-10 flex flex-col gap-3 p-6">
+            <div className="flex items-center gap-2 text-white/50">
+              <Icon className="size-4" />
+              <p className="font-mono text-[0.75rem] uppercase tracking-[0.05em]">
+                {feature.eyebrow}
+              </p>
+            </div>
+            <h3 className="text-[1.25rem] font-normal leading-[1.1] tracking-[-0.02em] text-white">
+              {feature.heading}
+            </h3>
+            <p className="text-sm leading-[1.5] text-white/50">{feature.body}</p>
+          </div>
+          <div ref={glowRef} className="pointer-events-none absolute inset-0 z-20 rounded-xl transition-all duration-100" />
+        </div>
+      </div>
+    );
+  }
+
+  // tall
+  return (
+    <div className={cn("", feature.gridClass)}>
+      <div
+        ref={cardRef}
+        data-bento-card
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="flex h-full w-full cursor-default flex-col overflow-hidden rounded-xl  bg-[#0f0f0f]"
+        style={{ willChange: "transform" }}
+      >
+        <div className="relative aspect-[3/4] w-full shrink-0">
+          <Media
+            src={feature.image}
+            alt={feature.heading}
+            className={feature.imageClass ?? "object-contain"}
+          />
+        </div>
+        <div className="relative z-10 flex flex-col gap-3 p-5">
+          <div className="flex items-center gap-2 text-white/50">
+            <Icon className="size-4" />
+            <p className="font-mono text-[0.75rem] uppercase tracking-[0.05em]">
+              {feature.eyebrow}
+            </p>
+          </div>
+          <h3 className="text-[1.1rem] font-normal leading-[1.1] tracking-[-0.02em] text-white">
+            {feature.heading}
+          </h3>
+          <p className="text-sm leading-[1.5] text-white/50">{feature.body}</p>
+        </div>
+        <div ref={glowRef} className="pointer-events-none absolute inset-0 z-20 rounded-xl transition-all duration-100" />
+      </div>
+    </div>
+  );
+}
+
+export default function AlternatingFeatures() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.set("[data-bento-card]", { opacity: 0, y: 36 });
+
+      ScrollTrigger.batch("[data-bento-card]", {
+        onEnter: (batch) => {
+          gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            duration: 1.1,
+            ease: "power2.out",
+            stagger: 0.15,
+          });
+        },
+        onLeaveBack: (batch) => {
+          gsap.to(batch, {
+            opacity: 0,
+            y: 36,
+            duration: 0.6,
+            ease: "power2.in",
+            stagger: 0.08,
+          });
+        },
+        start: "top 90%",
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section id="features" className="relative bg-[#EFEFEF]">
-      <div
-        ref={stackRef}
-        className="relative flex h-screen w-full flex-col overflow-hidden"
-      >
-        {/* Persistent header — lives inside the pinned box so it stays on
-            screen the whole time the cards stack underneath it. */}
-        <div className="mx-auto w-full max-w-6xl px-6 pt-16 pb-8 md:pt-20 md:pb-0">
-          <h2 className="text-[clamp(2.5rem,6vw,4.5rem)] font-normal leading-none tracking-[-0.02em] text-[#0F111A]">
-            Built to keep you progressing
-          </h2>
-        </div>
+    <section ref={sectionRef} id="features" className="bg-[#EFEFEF] py-20 md:py-28">
+      <div className="mx-auto w-full max-w-7xl px-6 md:px-10">
+        <h2 className="text-[clamp(2.5rem,6vw,4.5rem)] font-normal leading-none tracking-[-0.02em] text-[#0F111A]">
+          Built to keep you progressing
+        </h2>
 
-        <div className="relative flex-1">
-          {FEATURES.map((feature, index) => (
-            <div
-              key={feature.heading}
-              ref={(el) => {
-                if (el) cardsRef.current[index] = el;
-              }}
-              className="absolute inset-0 flex items-center justify-center px-6"
-              style={{ zIndex: index + 1 }}
-            >
-              <div
-                className={cn(
-                  "mx-auto flex w-full max-h-full flex-col items-center gap-8 overflow-hidden rounded-2xl bg-[#1A1A1A] p-8 md:gap-12 md:p-12 lg:p-16",
-                  feature.reverse ? "md:flex-row-reverse" : "md:flex-row"
-                )}
-                style={{
-                  // Each card is slightly wider → stacking depth effect
-                  maxWidth: `${1060 + index * 46}px`,
-                }}
-              >
-                {/* Text side */}
-                <div className="flex w-full flex-col gap-4 md:w-1/2">
-                  <p className="font-mono text-[0.8125rem] uppercase tracking-[0em] text-[#FF5A36]">
-                    {feature.eyebrow}
-                  </p>
-                  <h3 className="text-[clamp(1.5rem,3vw,2.25rem)] font-normal leading-[1.1] tracking-[-0.02em] text-white">
-                    {feature.heading}
-                  </h3>
-                  <p className="max-w-md text-base leading-[1.4] tracking-[-0.01em] text-white/60">
-                    {feature.body}
-                  </p>
-                </div>
-
-                {/* Image/video side */}
-                <div className="w-full overflow-hidden rounded-2xl md:w-1/2">
-                  {feature.image ? (
-                    <div className="relative aspect-[4/3] w-full">
-                      <Image
-                        src={feature.image}
-                        alt={feature.heading}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  ) : (
-                    <div className="flex aspect-[4/3] w-full items-center justify-center bg-white/5 text-sm text-white/40">
-                      {feature.placeholder}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
+        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+          {FEATURES.map((feature) => (
+            <BentoCard key={feature.heading} feature={feature} />
           ))}
         </div>
       </div>
