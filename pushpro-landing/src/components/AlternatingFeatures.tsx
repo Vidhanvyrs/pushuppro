@@ -150,7 +150,7 @@ function FeatureRow({ feature, index }: { feature: Feature; index: number }) {
         <h3 className="text-[clamp(1.75rem,3vw,2.5rem)] font-normal leading-[1.1] tracking-[-0.02em] text-[#0F111A]">
           {feature.heading}
         </h3>
-        <p className="max-w-md text-md leading-[1.6] text-[#0F111A]/50">{feature.body}</p>
+        <p className="max-w-md text-base leading-[1.6] text-[#0F111A]/50">{feature.body}</p>
       </div>
     </div>
   );
