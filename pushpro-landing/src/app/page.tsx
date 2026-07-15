@@ -4,9 +4,10 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import ValueProposition from "@/components/ValueProposition";
 import SectionFade from "@/components/SectionFade";
-import AlternatingFeatures from "@/components/AlternatingFeatures";
+import SocialProof from "@/components/SocialProof";
 import ClosingCTA from "@/components/ClosingCTA";
 import Footer from "@/components/Footer";
+import { HorizontalRail } from "@/components/feature-prototype/HorizontalRail";
 
 export default function Home() {
   const asciiArt = readFileSync(
@@ -20,8 +21,9 @@ export default function Home() {
       <main>
         <Hero />
         <ValueProposition />
-        <AlternatingFeatures />
-        <SectionFade from="#EFEFEF" to="#000000" />
+        <HorizontalRail />
+        <SocialProof />
+        <SectionFade from="#ffffff" to="#000000" />
         <div className="relative overflow-hidden bg-black">
           <div
             className="pointer-events-none absolute inset-x-0 top-100 hidden h-full md:block"
@@ -37,4 +39,3 @@ export default function Home() {
     </>
   );
 }
-

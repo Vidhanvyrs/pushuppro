@@ -128,3 +128,38 @@
     @apply font-sans;
   }
 }
+
+@keyframes value-card-drift {
+  0%,
+  100% {
+    transform: translate3d(0, -5px, 0);
+  }
+  50% {
+    transform: translate3d(0, 7px, 0);
+  }
+}
+
+@keyframes value-card-drift-reverse {
+  0%,
+  100% {
+    transform: translate3d(0, 6px, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+.value-card-drift-slow {
+  animation: value-card-drift 6s ease-in-out infinite;
+}
+
+.value-card-drift-reverse {
+  animation: value-card-drift-reverse 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .value-card-drift-slow,
+  .value-card-drift-reverse {
+    animation: none;
+  }
+}
