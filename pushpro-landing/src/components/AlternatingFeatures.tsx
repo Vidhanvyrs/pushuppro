@@ -56,7 +56,7 @@ const FEATURES: Feature[] = [
   {
     icon: Dumbbell,
     eyebrow: "Exercise Library",
-    heading: "900+ exercises. Every variation, covered.",
+    heading: "900+ exercises. Every variations.",
     body: "From barbell squats to bodyweight alternatives, PushupPro has every exercise with weighted and equipment-free swaps, so no gym or no gear ever stops your session.",
     image: "/test2.mp4",
     imageClass: "object-cover",
