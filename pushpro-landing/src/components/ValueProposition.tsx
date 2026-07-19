@@ -19,7 +19,7 @@ const LINES = [
 
 const FLOATING_SCREENS = [
   {
-    src: "/care1.avif",
+    src: "/value1.jpg",
     alt: "PushupPro weekly workout dashboard",
     className:
       "left-[-2rem] top-[18%] w-[6.75rem] -rotate-[6deg] sm:left-[6%] sm:top-[14%] sm:w-[clamp(8rem,14vw,12rem)] sm:-rotate-[8deg] lg:left-[10%]",
@@ -30,7 +30,7 @@ const FLOATING_SCREENS = [
     mobileOpacity: 0.88,
   },
   {
-    src: "/care2.avif",
+    src: "/value2.jpg",
     alt: "PushupPro workout quick actions",
     className:
       "right-[-2rem] top-[20%] w-[6.75rem] rotate-[6deg] sm:right-[6%] sm:top-[15%] sm:w-[clamp(8rem,14vw,12rem)] sm:rotate-[8deg] lg:right-[10%]",
@@ -41,7 +41,7 @@ const FLOATING_SCREENS = [
     mobileOpacity: 0.88,
   },
   {
-    src: "/care3.avif",
+    src: "/value3.jpg",
     alt: "PushupPro completed workout summary",
     className:
       "left-[-2rem] top-[66%] w-[6.75rem] rotate-[5deg] sm:bottom-[12%] sm:left-[7%] sm:top-auto sm:w-[clamp(8rem,13vw,11rem)] sm:rotate-[7deg] lg:left-[13%]",
@@ -52,7 +52,7 @@ const FLOATING_SCREENS = [
     mobileOpacity: 0.8,
   },
   {
-    src: "/care4.avif",
+    src: "/value4.jpg",
     alt: "PushupPro exercise library",
     className:
       "right-[-2rem] top-[69%] w-[6.75rem] -rotate-[5deg] sm:bottom-[11%] sm:right-[7%] sm:top-auto sm:w-[clamp(8rem,13vw,11rem)] sm:-rotate-[7deg] lg:right-[13%]",
