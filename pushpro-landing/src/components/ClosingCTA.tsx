@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { toast } from "sonner";
@@ -160,7 +161,13 @@ export default function ClosingCTA({ asciiArt }: { asciiArt: string }) {
           </form>
 
           <p className="mt-4 text-xs text-white/30">
-            By submitting your email you agree to the <span className="underline hover:cursor-pointer">privacy policy</span>
+            By submitting your email you agree to the{" "}
+            <Link
+              href="/privacy"
+              className="underline underline-offset-2 transition-colors hover:text-white/60"
+            >
+              privacy policy
+            </Link>
           </p>
         </div>
 
