@@ -9,9 +9,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 const BACKGROUND_VIDEOS = [
   "/extra-vids/12382055_1920_1080_25fps.mp4",
-  "/extra-vids/16237120_2560_1440_30fps.mp4",
   "/extra-vids/6389055-uhd_3840_2160_25fps.mp4",
   "/extra-vids/9481582-hd_1920_1080_30fps.mp4",
+  "/extra-vids/16237120_2560_1440_30fps.mp4",
   "/extra-vids/9778000-hd_1920_1080_25fps.mp4",
 ] as const;
 

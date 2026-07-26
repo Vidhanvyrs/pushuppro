@@ -65,7 +65,7 @@ export default function Navigation() {
         </div>
 
         <a
-          href="https://neymo.ai/"
+          href="https://pushup.neymo.ai/"
           className="hidden rounded-sm font-semibold bg-white px-4 py-2 font-mono text-sm uppercase tracking-[0em] text-black transition-colors hover:bg-white/90 md:inline-block"
           target="_blank"
         >
