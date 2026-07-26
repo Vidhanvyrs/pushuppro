@@ -6,6 +6,7 @@ import ValueProposition from "@/components/ValueProposition";
 import SectionFade from "@/components/SectionFade";
 import SocialProof from "@/components/SocialProof";
 import ClosingCTA from "@/components/ClosingCTA";
+import MoreFeatures from "@/components/MoreFeatures";
 import Footer from "@/components/Footer";
 import { HorizontalRail } from "@/components/feature-prototype/HorizontalRail";
 
@@ -23,6 +24,7 @@ export default function Home() {
         <ValueProposition />
         <HorizontalRail />
         <SocialProof />
+        <MoreFeatures />
         <SectionFade from="#ffffff" to="#000000" />
         <div className="relative overflow-hidden bg-black">
           <div
