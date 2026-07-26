@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="relative px-6 pb-10 pt-6 md:pt-8">
@@ -8,13 +10,18 @@ export default function Footer() {
           </span>
 
           <nav className="flex items-center gap-6 text-sm text-white/60">
-            <a href="/privacy" className="transition-colors hover:text-white">
+            <Link href="/privacy" className="transition-colors hover:text-white">
               Privacy
-            </a>
-            <a href="/terms" className="transition-colors hover:text-white">
+            </Link>
+            <Link href="/terms" className="transition-colors hover:text-white">
               Terms
-            </a>
-            <a href="/contact" className="transition-colors hover:text-white">
+            </Link>
+            <a
+              href="https://wa.me/917022771245"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-white"
+            >
               Contact
             </a>
           </nav>
