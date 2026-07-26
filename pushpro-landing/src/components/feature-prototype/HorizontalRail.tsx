@@ -129,7 +129,7 @@ export function HorizontalRail() {
                     </div>
                   </div>
                 </div>
-                <div className="relative min-h-64 overflow-hidden bg-[#DDE3DC] md:m-3 md:ml-0 md:rounded-[1.4rem]">
+                <div className="relative aspect-[4/3] w-full min-h-0 self-center overflow-hidden bg-[#DDE3DC] md:my-3 md:mr-3 md:w-auto md:rounded-[1.4rem]">
                   <FeatureMedia feature={feature} active={active} priority={index === 0} />
                   <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/5" />
                 </div>

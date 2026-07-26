@@ -34,7 +34,7 @@ export function FeatureMedia({
 
   const mediaClass = cn(
     "absolute inset-0 h-full w-full",
-    feature.media.fit === "cover" ? "object-cover" : "object-contain p-6",
+    feature.media.fit === "cover" ? "object-cover" : "object-contain",
     className,
   );
 
