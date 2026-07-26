@@ -82,7 +82,7 @@ export default function SocialProof() {
             </div>
           </div>
           <div className="text-center -ml-[130px] w-full mt-[35%]">
-            <h2 className="text-[4.1rem] text-nowrap font-bold leading-[1.1] tracking-[-0.02em] text-[#0F111A]">
+            <h2 className="text-[4.1rem] text-nowrap font-normal leading-[1.1] tracking-[-0.02em] text-[#0F111A]">
               Crafted with Care <br /> Loved Everywhere
             </h2>
             <p className="mt-3 text-xl ml-[70px] text-center w-full leading-[1.5] text-[#0F111A]/60">

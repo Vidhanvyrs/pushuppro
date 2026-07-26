@@ -1,11 +1,7 @@
 import {
   Dumbbell,
-  MessageSquare,
   Scan,
-  ScanFace,
   Share2,
-  Target,
-  TrendingUp,
   Trophy,
   type LucideIcon,
 } from "lucide-react";
@@ -25,18 +21,6 @@ export type FeatureItem = {
 
 export const FEATURES: readonly FeatureItem[] = [
   {
-    id: "personalized-plans",
-    icon: Target,
-    eyebrow: "Personalized Plans",
-    heading: "A weekly plan built around you.",
-    body: "Tell PushupPro your goals, fitness level, and available equipment. It builds a plan tailored to you and keeps it updated as you progress.",
-    media: {
-      kind: "image",
-      src: "/output/imagegen/pushuppro-feature-cards/01-personalized-plans.png",
-      fit: "contain",
-    },
-  },
-  {
     id: "pr-tracking",
     icon: Trophy,
     eyebrow: "PR Tracking",
@@ -45,18 +29,6 @@ export const FEATURES: readonly FeatureItem[] = [
     media: {
       kind: "image",
       src: "/output/imagegen/pushuppro-feature-cards/02-pr-tracking.png",
-      fit: "contain",
-    },
-  },
-  {
-    id: "progressive-overload",
-    icon: TrendingUp,
-    eyebrow: "Progressive Overload",
-    heading: "Built to keep you climbing.",
-    body: "PushupPro watches your progress and tells you exactly when to add weight or reps, so you never stall or guess.",
-    media: {
-      kind: "image",
-      src: "/output/imagegen/pushuppro-feature-cards/03-progressive-overload.png",
       fit: "contain",
     },
   },
@@ -93,30 +65,6 @@ export const FEATURES: readonly FeatureItem[] = [
     media: {
       kind: "image",
       src: "/output/imagegen/pushuppro-feature-cards/06-body-scan.png",
-      fit: "contain",
-    },
-  },
-  {
-    id: "ai-coach",
-    icon: MessageSquare,
-    eyebrow: "AI Coach",
-    heading: "A helpful hand mid-workout.",
-    body: "Ask quick questions about rest times, form, or exercise swaps and get useful guidance without breaking your flow.",
-    media: {
-      kind: "image",
-      src: "/output/imagegen/pushuppro-feature-cards/07-ai-coach.png",
-      fit: "contain",
-    },
-  },
-  {
-    id: "pose-detection",
-    icon: ScanFace,
-    eyebrow: "Pose Detection & Challenges",
-    heading: "Compete. Rep by rep with form feedback.",
-    body: "Point your camera and PushupPro counts every rep, scores your form, flags bad reps, and lets you compete in pushup and plank challenges.",
-    media: {
-      kind: "image",
-      src: "/output/imagegen/pushuppro-feature-cards/08-pose-detection-challenges.png",
       fit: "contain",
     },
   },
